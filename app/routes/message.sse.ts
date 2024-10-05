@@ -52,7 +52,6 @@ export async function loader({ request }: LoaderFunctionArgs) {
 
     return function cleanup() {
       // Clean up any resources if needed
-      console.log("Cleaning up resources");
     };
   });
 }
