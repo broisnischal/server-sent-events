@@ -11,12 +11,18 @@
     "typecheck": "tsc"
   },
   "dependencies": {
+    "@epic-web/remember": "^1.1.0",
+    "@prisma/client": "^5.20.0",
     "@remix-run/node": "^2.12.1",
     "@remix-run/react": "^2.12.1",
     "@remix-run/serve": "^2.12.1",
+    "@remix-sse/client": "^1.0.1",
+    "@remix-sse/server": "^1.0.1",
     "isbot": "^4.1.0",
+    "prisma": "^5.20.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "remix-utils": "^7.7.0"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.12.1",
