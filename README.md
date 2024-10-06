@@ -41,3 +41,13 @@ overhead of constant reconnecting.
 
 Plus, SSE uses HTTP, making it easy to implement. For efficient, low-latency
 updates, _Server-Sent Events_ is the way to go!
+
+Example Usecase:
+
+- Stock Prices
+- Live Scores
+- Chat Applications
+- Notifications
+- Live Updates
+- Live Polls
+- Text Streaming
