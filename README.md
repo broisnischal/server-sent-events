@@ -1,40 +1,43 @@
-# Welcome to Remix!
+# Server Sent Events
 
-- 📖 [Remix docs](https://remix.run/docs)
+![alt text](image.png)
 
-## Development
+The TCP 3-way handshake with Sequence Numbers works like this:
 
-Run the dev server:
+SYN (Synchronize)
 
-```shellscript
-npm run dev
-```
+- The client sends a packet with a SYN flag to the server to initiate a
+  connection.
+- It includes a random Sequence Number (Seq = X) to start tracking data in
+  order.
 
-## Deployment
+SYN-ACK (Synchronize-Acknowledgment)
 
-First, build your app for production:
+- The server responds with its own SYN and acknowledges the client’s sequence by
+  setting Ack = X+1.
+- The server also sends its own Sequence Number (Seq = Y).
 
-```sh
-npm run build
-```
+ACK (Acknowledgment)
 
-Then run the app in production mode:
+- The client acknowledges the server’s sequence by sending Ack = Y+1.
+- At this point, the connection is established, and data transfer can start.
 
-```sh
-npm start
-```
+Once the TCP connection is established, SSE can operate over HTTP by sending a
+continuous stream of data. The TCP layer’s reliability guarantees that each SSE
+message reaches the client, allowing it to process real-time updates
+consistently without polling.
 
-Now you'll need to pick a host to deploy it to.
+SSE allows a server to push updates directly to a client over a single,
+persistent connection. It’s like the server saying, ‘Hey, I’ll let you know as
+soon as there’s something new’—instead of the client constantly checking in,
 
-### DIY
+With SSE, we make just _one_ request, and the server keeps the connection open,
+pushing data to the client as soon as it's available—so updates are almost
+instant.
 
-If you're familiar with deploying Node applications, the built-in Remix app server is production-ready.
+SSE is ideal for applications needing real-time updates, like stock tickers,
+news feeds, or notifications. You get a steady stream of data without the
+overhead of constant reconnecting.
 
-Make sure to deploy the output of `npm run build`
-
-- `build/server`
-- `build/client`
-
-## Styling
-
-This template comes with [Tailwind CSS](https://tailwindcss.com/) already configured for a simple default starting experience. You can use whatever css framework you prefer. See the [Vite docs on css](https://vitejs.dev/guide/features.html#css) for more information.
+Plus, SSE uses HTTP, making it easy to implement. For efficient, low-latency
+updates, _Server-Sent Events_ is the way to go!
