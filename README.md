@@ -1,4 +1,46 @@
-# Server Sent Events
+# Server-Sent Events (SSE)
+
+Server-Sent Events (SSE) is a web technology that enables servers to push data
+to web clients in real-time over a single HTTP connection. This document covers
+everything you need to know about SSE, from its basics to implementation and use
+cases.
+
+## What are Server-Sent Events?
+
+SSE is a standard that allows a web server to send events to a client's web
+browser. It's a one-way communication channel where the server can push data to
+the client without the client requesting it.
+
+## How SSE Works
+
+1. The client establishes a connection to the server using a standard HTTP
+   request.
+2. The server keeps this connection open and sends data to the client when new
+   information is available.
+3. The client receives these updates in real-time without having to poll the
+   server.
+
+## Key Features of SSE
+
+- **Unidirectional**: Data flows from server to client only.
+- **Simple Protocol**: Uses standard HTTP for communication.
+- **Automatic Reconnection**: Browsers automatically attempt to reconnect if the
+  connection is lost.
+- **Event IDs**: Allows for message ordering and resuming from where the
+  connection was lost.
+- **Event Types**: Supports custom event types for categorizing different kinds
+  of updates.
+
+## SSE vs WebSockets
+
+While both technologies enable real-time communication, SSE is simpler and more
+lightweight than WebSockets:
+
+- SSE is unidirectional; WebSockets are bidirectional.
+- SSE uses standard HTTP; WebSockets use a custom protocol.
+- SSE has better native browser support and is easier to implement.
+
+## How it works
 
 ![alt text](image.png)
 
@@ -41,13 +83,3 @@ overhead of constant reconnecting.
 
 Plus, SSE uses HTTP, making it easy to implement. For efficient, low-latency
 updates, _Server-Sent Events_ is the way to go!
-
-Example Usecase:
-
-- Stock Prices
-- Live Scores
-- Chat Applications
-- Notifications
-- Live Updates
-- Live Polls
-- Text Streaming
