@@ -1,0 +1,37 @@
+# azure-pipelines.yml
+trigger:
+  branches:
+    include:
+      - main
+
+pool:
+  name: ubuntu
+  demands:
+    - agent.name -equals web
+
+steps:
+  # Step 1: Checkout the code
+  - task: UseNode@1
+    inputs:
+      checkLatest: true
+
+  # Step 2: Install dependencies
+  - script: |
+      npm install
+    displayName: "Install dependencies"
+
+  # Step 3: Build the app
+  - script: |
+      npm run build
+    displayName: "Build the Remix app"
+
+  # Step 4: Run tests
+  - script: |
+      npm test
+    displayName: "Run tests"
+
+  # Optional: Step 5: Deploy (if deployment is configured)
+  # Uncomment and configure if needed
+  # - script: |
+  #     npm run deploy
+  #   displayName: "Deploy the app"
