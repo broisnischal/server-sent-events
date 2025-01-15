@@ -2,32 +2,28 @@
 trigger:
   branches:
     include:
-      - main  # Adjust to your default branch
+      - main  # Adjust based on your branch
 
 pool:
   name: ubuntu
   demands:
     - agent.name -equals web
 
-variables:
-  # Set any required environment variables
-  NODE_VERSION: '16.x'
-
 steps:
-  # Step 1: Install Node.js
-  - task: UseNode@1
-    inputs:
-      versionSpec: '$(NODE_VERSION)'
-      checkLatest: true
-    displayName: "Install Node.js $(NODE_VERSION)"
-
-  # Step 2: Checkout the repository
+  # Step 1: Checkout the repository
   - task: Checkout@1
     displayName: "Checkout code"
 
+  # Step 2: Install Node.js
+  - task: UseNode@1
+    inputs:
+      versionSpec: '16.x'  # Adjust based on your needs
+      checkLatest: true
+    displayName: "Set up Node.js"
+
   # Step 3: Install dependencies
   - script: |
-      npm install
+      npm ci
     displayName: "Install dependencies"
 
   # Step 4: Build the Remix app
@@ -39,20 +35,3 @@ steps:
   - script: |
       npm test
     displayName: "Run tests"
-
-  # Optional: Step 6: Publish build artifacts
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathToPublish: 'build/' # Adjust based on your app's output
-      artifactName: 'drop'
-      publishLocation: 'Container'
-    displayName: "Publish build artifacts"
-
-  # Optional: Step 7: Deploy to environment (example: Azure App Service)
-  - task: AzureWebApp@1
-    inputs:
-      azureSubscription: 'AzureSubscription1'
-      appType: 'webApp'
-      appName: '<your-app-name>'
-      package: '$(Pipeline.Workspace)/drop'
-    displayName: "Deploy to Azure App Service"
