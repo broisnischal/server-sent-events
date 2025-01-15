@@ -10,28 +10,29 @@ pool:
     - agent.name -equals web
 
 steps:
-  # Step 1: Checkout the code
-  - task: UseNode@1
-    inputs:
-      checkLatest: true
+  # Step 1: Install Node.js (specific version)
+  - script: |
+      curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -
+      sudo apt-get install -y nodejs
+      node -v
+      npm -v
+    displayName: "Install Node.js 16"
 
-  # Step 2: Install dependencies
+  # Step 2: Checkout the code
+  - task: Checkout@1
+    displayName: "Checkout code"
+
+  # Step 3: Install dependencies
   - script: |
       npm install
     displayName: "Install dependencies"
 
-  # Step 3: Build the app
+  # Step 4: Build the app
   - script: |
       npm run build
     displayName: "Build the Remix app"
 
-  # Step 4: Run tests
+  # Step 5: Run tests
   - script: |
       npm test
     displayName: "Run tests"
-
-  # Optional: Step 5: Deploy (if deployment is configured)
-  # Uncomment and configure if needed
-  # - script: |
-  #     npm run deploy
-  #   displayName: "Deploy the app"
